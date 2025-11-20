@@ -9,6 +9,7 @@ export class EditQueryModal extends Modal {
 	constructor(app: App, query: Query, handleChange: (query: Query) => void) {
 		super(app);
 		this.query = query;
+		this.modalEl.addClass("arn-edit-modal");
 		this.view = new Component({
 			target: this.contentEl,
 			props: {

@@ -50,17 +50,29 @@ export class Search {
 				)
 				.filter((file) => file !== null && file instanceof TFile)
 				.map((file) => file as TFile);
-		} else {
-			const files = this.plugin.app.vault.getFiles();
-
-			if (query.type === "Regex") {
-				const regex = new RegExp(query.query);
-				result = files.filter((file) => regex.test(file.path));
 			} else {
-				result = files.filter((file) =>
-					this.checkFileToMatchQuery(file, query)
-				);
-			}
+				const files = this.plugin.app.vault.getFiles();
+
+				if (query.type === "Regex") {
+					try {
+						const regex = new RegExp(query.query);
+						result = files.filter((file) => regex.test(file.path));
+					} catch (error) {
+						const errorMessage =
+							error instanceof Error
+								? error.message
+								: String(error);
+						new Notice(
+							"Advanced Random Note: Invalid regular expression. " +
+								errorMessage
+						);
+						return [];
+					}
+				} else {
+					result = files.filter((file) =>
+						this.checkFileToMatchQuery(file, query)
+					);
+				}
 		}
 
 		// Filter disabled folder

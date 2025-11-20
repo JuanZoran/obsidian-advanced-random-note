@@ -94,7 +94,8 @@ export function createQuery(name: string, query: string): Query {
 }
 
 export function getFullPath(file: TFile): string {
-	return file.path + "/" + file.name + "." + file.path;
+	// Obsidian already stores the relative path (including filename) in file.path
+	return file.path;
 }
 
 export function flattenFiles(abstractFiles: TAbstractFile[]): TFile[] {

@@ -3,14 +3,20 @@
 
 	export let queries: Query[];
 	export let handleSubmit: (query: Query) => void;
-	let selectedQuery: Query;
+	let selectedQuery: Query | undefined;
+
+	// Default to first query if available to avoid undefined submission
+	$: if (!selectedQuery && queries.length > 0) {
+		selectedQuery = queries[0];
+	}
 
 	const handleFormSubmit = () => {
+		if (!selectedQuery) return;
 		handleSubmit(selectedQuery);
 	};
 </script>
 
-<h3>Select Random Note Query</h3>
+<h3>选择随机笔记的查询</h3>
 
 {#if queries.length > 0}
 	<form on:submit|preventDefault={handleFormSubmit}>
@@ -19,11 +25,11 @@
 				<option value={query}>{query.name}</option>
 			{/each}
 		</select>
-		<button class="mod-cta" type="submit">Find Random Note</button>
+		<button class="mod-cta" type="submit">随机打开笔记</button>
 	</form>
 {:else}
 	<p class="setting-item-description">
-		Go to settings tab to make search queries.
+		前往设置页创建查询。
 	</p>
 {/if}
 

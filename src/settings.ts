@@ -37,8 +37,8 @@ export class SettingTab extends PluginSettingTab {
 	addSetting() {
 		// Make files active
 		new Setting(this.containerEl)
-			.setName("Open files as active")
-			.setDesc("Make files active when they are opened.")
+			.setName("打开文件时设为激活状态")
+			.setDesc("打开文件后自动激活对应的标签页。")
 			.addToggle((toggle) => {
 				toggle
 					.setValue(this.plugin.settings.setActive)
@@ -50,8 +50,8 @@ export class SettingTab extends PluginSettingTab {
 
 		// Open type
 		new Setting(this.containerEl)
-			.setName("Open in")
-			.setDesc("Where to open files.")
+			.setName("打开位置")
+			.setDesc("选择文件要在何处打开。")
 			.addDropdown((dropdown) =>
 				dropdown
 					.addOptions(toRecord(getOpenTypeLabels()))
@@ -64,8 +64,8 @@ export class SettingTab extends PluginSettingTab {
 
 		// Disabled folders setting
 		new Setting(this.containerEl)
-			.setName("Disabled folders")
-			.setDesc("Skips these folders when searching for files.")
+			.setName("禁用的文件夹")
+			.setDesc("搜索文件时跳过这些文件夹。")
 			.addTextArea((text) => {
 				text.setPlaceholder("templates/")
 					.setValue(this.plugin.settings.disabledFolders)
@@ -79,7 +79,7 @@ export class SettingTab extends PluginSettingTab {
 	addQueriesSetting() {
 		// Title
 		this.containerEl.createEl("div", {
-			text: "Queries",
+			text: "查询",
 			cls: "setting-item setting-item-heading",
 		});
 
